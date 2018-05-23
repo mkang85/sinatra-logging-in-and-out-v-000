@@ -22,10 +22,10 @@ class ApplicationController < Sinatra::Base
 
   get '/account' do
     @current_user = User.find_by_id(session[:user_id])
-    @user = User.new(username: params["username"], password:params["password"], balance: params["balance"])
-    session[:user_id] = @user.id
-    user.save
-    erb :account
+    if @current_user
+      erb :account
+    else
+      erb :error
   end
 
   get '/logout' do
