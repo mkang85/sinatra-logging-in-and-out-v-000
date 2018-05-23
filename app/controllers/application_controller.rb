@@ -11,7 +11,6 @@ class ApplicationController < Sinatra::Base
   end
 
   post '/login' do
-
       #@user = User.find_by(:username => params[:username])
       if @user = User.find_by(:username => params[:username], :password => params[:password])#@user&& @user.password == params["password"]
         session[:user_id] = @user.id
@@ -22,6 +21,7 @@ class ApplicationController < Sinatra::Base
   end
 
   get '/account' do
+    @current_user = User.find_by_id(session[:user_id])
     @user = User.new(username: params["username"], password:params["password"], balance: params["balance"])
     session[:user_id] = @user.id
     user.save
