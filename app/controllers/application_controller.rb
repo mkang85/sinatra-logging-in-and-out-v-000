@@ -23,7 +23,7 @@ class ApplicationController < Sinatra::Base
 
   get '/account' do
     @user = User.new(username: params["username"], password:params["password"], balance: params["balance"])
-    session[:id] = @user.id
+    session[:user_id] = @user.id
     user.save
     erb :account
   end
